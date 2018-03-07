@@ -205,7 +205,7 @@ public void mostraConectados(String cad){
         
         }
     }
-   this.conectados.setText(cad);
+ //  this.conectados.setText(cad);
 
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
