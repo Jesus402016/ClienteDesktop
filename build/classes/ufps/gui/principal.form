@@ -46,7 +46,7 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="botonOk" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="154" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="157" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>

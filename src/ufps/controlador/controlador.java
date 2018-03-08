@@ -67,7 +67,11 @@ public class controlador extends Thread {
  
  public void recibirMensaje(String []list){
      String cad="";
-     cad=list[1]+":"+""+list[3];
+     cad=list[1]+":"+" "+list[3];
+     this.ventana.ingresarMensaje(cad);
+ }
+ 
+ public void desconectar(String cad){
      this.ventana.ingresarMensaje(cad);
  }
  

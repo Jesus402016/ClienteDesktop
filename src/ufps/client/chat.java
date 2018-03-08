@@ -114,7 +114,7 @@ public class chat extends Thread {
                   }
                 else if(list[0].equals("DESCONECTAR"))
                   {
-                System.out.println(list[1]+" "+"Salió");
+                  this.cont.desconectar(list[1]+" "+"Salió");
                   }
                 else if(list[0].equals("CONECTAR"))
                 {
