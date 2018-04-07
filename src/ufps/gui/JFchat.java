@@ -5,8 +5,12 @@
  */
 package ufps.gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import ufps.controlador.controlador;
 
@@ -21,11 +25,23 @@ public class JFchat extends javax.swing.JFrame {
      */
     private controlador cont;
     private String nombre;
-     private String historial="";
+    private String historial="";
+    private ArrayList<String> historialPri=new ArrayList<String>();
+    private JFchat chat;
+    private JFchatPriv priva;
+    
+
+     
+     
+     
+     
     public JFchat(String nombre) {
         this.nombre=nombre;
+        
         initComponents();
         this.txtname.setText("Usuario:"+""+nombre);
+        this.PaneEditor.setLayout(null);
+
     }
 
     /**
@@ -45,10 +61,11 @@ public class JFchat extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jCombo = new javax.swing.JComboBox();
         btbTodos = new javax.swing.JToggleButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        jButton2 = new javax.swing.JButton();
         txtname = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        PaneEditor = new javax.swing.JEditorPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,7 +91,7 @@ public class JFchat extends javax.swing.JFrame {
             .addGroup(jpConectadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(323, Short.MAX_VALUE))
         );
 
         jButton1.setText("Enviar");
@@ -83,11 +100,26 @@ public class JFchat extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton1KeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jButton1KeyTyped(evt);
+            }
+        });
 
         btbTodos.setText("Enviar a Todos");
         btbTodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btbTodosActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Dictado");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -101,8 +133,10 @@ public class JFchat extends javax.swing.JFrame {
                     .addComponent(txtEnviar))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addGap(15, 15, 15)
-                .addComponent(btbTodos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btbTodos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -114,40 +148,41 @@ public class JFchat extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
-                    .addComponent(btbTodos))
+                    .addComponent(btbTodos)
+                    .addComponent(jButton2))
                 .addContainerGap())
         );
-
-        jTextArea2.setEditable(false);
-        jTextArea2.setBackground(new java.awt.Color(204, 204, 204));
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jTextArea2.setAutoscrolls(false);
-        jScrollPane2.setViewportView(jTextArea2);
 
         txtname.setText("jLabel1");
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ufps/imagenes/user_icon-icons.com_57997.png"))); // NOI18N
+
+        PaneEditor.setEditable(false);
+        PaneEditor.setContentType("text/html"); // NOI18N
+        PaneEditor.setAutoscrolls(false);
+        jScrollPane1.setViewportView(PaneEditor);
 
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
         jInternalFrame1Layout.setHorizontalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtname, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jInternalFrame1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jInternalFrame1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(414, 414, 414)
                         .addComponent(jpConectados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 25, Short.MAX_VALUE))
+            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtname, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,10 +194,10 @@ public class JFchat extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jpConectados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -189,43 +224,90 @@ public class JFchat extends javax.swing.JFrame {
         // TODO add your handling code here:
         String mensaje=this.txtEnviar.getText();
         String nombre=(String)this.jCombo.getSelectedItem();
-        this.historial+=""+""+""+"Yo"+":"+""+mensaje+"\n";
+        this.historial+=estilo.htmlEnviado(mensaje);
         this.cont.enviarMensaje(mensaje, nombre);
-        this.jTextArea2.setText(historial);
+        this.PaneEditor.setText(historial);
         this.txtEnviar.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btbTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbTodosActionPerformed
         // TODO add your handling code here:
-        String mensaje=this.txtEnviar.getText();
-        this.historial+="(Mensaje a Todos)"+this.nombre+":"+""+mensaje+"\n";
+        String mensa=this.txtEnviar.getText();
+        String mensaje="(Mensaje a Todos)"+this.nombre+":"+""+mensa+"\n";
+        this.historial+=estilo.htmlEnviado(mensaje);
         this.cont.enviarMensajeTodos(mensaje);       
-        this.jTextArea2.setText(historial);
+        this.PaneEditor.setText(historial);
         this.txtEnviar.setText("");
         
     }//GEN-LAST:event_btbTodosActionPerformed
 
+    private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton1KeyPressed
+
+    private void jButton1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyTyped
+        // TODO add your handling code here:
+      
+    }//GEN-LAST:event_jButton1KeyTyped
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 public void ingresarMensaje(String cad){
-    this.historial+=cad+"\n";
-    this.jTextArea2.setText(historial);
+   this.historial+=estilo.htmlRecibido(cad);
+   this.PaneEditor.setText(historial);
+    System.out.println(historial);
+}
+
+public void ingresarMensajePrivado(String cad){
+  
+   this.priva.recibirMensaje(cad);
+}
+
+public void mensajePrivado(String cad,String nom){
+    this.cont.enviarMensajeP(cad, nom);
+}
+
+public boolean isNull(){
+    if(priva==null)
+        return true;
+    return false; 
+    
 }
 public void mostraConectados(String cad){
     String []list=cad.split(",");
     String aux="Conectados"+"\n"+cad;
-    JLabel [] lbl=new JLabel[list.length];
+    JButton [] lbl=new JButton[list.length];
     this.setLayout(null);
-    this.jCombo.removeAllItems();
+   this.jCombo.removeAllItems();
     this.jpConectados.removeAll();
-   this.jpConectados.add(this.jLabel3);
-   
-   
+   this.jpConectados.add(this.jLabel3); 
+   this.chat=this;
     int x=30;    
-    for (int i = 0; i <list.length; i++) {
+    for (int i = 0; i <list.length; i++){
+         String usuario=list[i];
          ImageIcon img= new ImageIcon(getClass().getResource("../imagenes/online.png"));         
-         lbl[i]=new JLabel(img);
+         lbl[i]=new JButton(img);
          lbl[i].setText(list[i]);
-         lbl[i].setBounds(10, x, 100, 20);
-         x=x+30;
+         lbl[i].setBounds(10, x, 120, 40);
+         lbl[i].addActionListener( new ActionListener() {
+
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 priva=new JFchatPriv(chat,usuario);
+                 priva.setVisible(true);
+                
+             }
+         }
+         );
+         x=x+45;
+         String cade=usuario+":::";
+         this.getHistorialPri().add(cade);
+       
+         
+         
          this.jpConectados.add(lbl[i]);
         if(!list[i].equals(nombre)){
         this.jCombo.addItem(list[i]);
@@ -233,20 +315,26 @@ public void mostraConectados(String cad){
         }
         
     }
-    this.jpConectados.repaint();
+   this.jpConectados.repaint();
     System.out.println(cad);
+       
+    
+     
 
 }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JEditorPane PaneEditor;
     private javax.swing.JToggleButton btbTodos;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jCombo;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel jpConectados;
     private javax.swing.JTextField txtEnviar;
     private javax.swing.JLabel txtname;
@@ -271,5 +359,19 @@ public void mostraConectados(String cad){
      */
     public void setCont(controlador cont) {
         this.cont = cont;
+    }
+
+    /**
+     * @return the historialPri
+     */
+    public ArrayList<String> getHistorialPri() {
+        return historialPri;
+    }
+
+    /**
+     * @param historialPri the historialPri to set
+     */
+    public void setHistorialPri(ArrayList<String> historialPri) {
+        this.historialPri = historialPri;
     }
 }

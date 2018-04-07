@@ -87,6 +87,17 @@ public class chat extends Thread {
         
     }
     
+     //Enviar Mensaje solo usuario
+    public void enviarMensajePriv(String mensaje,String destino) throws IOException{
+            String[] c = new String[4];
+            c[0] = "MENSAJEPRIVADO";
+            c[1] = this.usuario.getNombre();
+            c[2]=destino;
+            c[3]=mensaje;
+            this.usuario.getEnviar().writeObject(c);
+        
+    }
+    
     public void EnviaraTodos(String mensaje) throws IOException{
           String[] c = new String[4];
             c[0] = "MENSAJETODOS";
@@ -104,6 +115,10 @@ public class chat extends Thread {
                 if(list[0].equals("MENSAJE")){
                 this.cont.recibirMensaje(list);
                 cont.setNombre(list[1]);
+                }else if(list[0].equals("MENSAJEPRIVADO")){
+                this.cont.recibirMensajePriva(list);
+                cont.setNombre(list[1]);            
+                    
                 }
                 else if(list[0].equals("MENSAJETODOS")){
                     this.cont.recibirMensaje(list);

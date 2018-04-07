@@ -23,6 +23,7 @@ public class controlador extends Thread {
    private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
    private boolean activo=true;
    private JFchat ventana;
+   private boolean esprivado=false;
  
    
  public controlador(String nombre,JFchat ventana){
@@ -48,9 +49,25 @@ public class controlador extends Thread {
 //Metodo para enviar Mensaje al destino 
  public void enviarMensaje(String mensaje,String nombre ){
      this.setNombre(nombre);
+     if(esprivado){
+         enviarMensajeP(mensaje, nombre);
+         this.esprivado=false;
+     }else{
      
        try {
            this.chat.enviarMensaje(mensaje, nombre);
+       } catch (IOException ex) {
+          System.out.println("Error al enviar mensaje");
+       }
+     }
+     
+ }
+ 
+  public void enviarMensajeP(String mensaje,String nombre ){
+     this.setNombre(nombre);
+     
+       try {
+           this.chat.enviarMensajePriv(mensaje, nombre);
        } catch (IOException ex) {
           System.out.println("Error al enviar mensaje");
        }
@@ -70,6 +87,19 @@ public class controlador extends Thread {
      cad=list[1]+":"+" "+list[3];
      this.ventana.ingresarMensaje(cad);
  }
+ 
+ public void recibirMensajePriva(String []list){
+     String cad="";
+     cad=list[1]+":"+" "+list[3];
+     this.esprivado=true;
+     if(this.ventana.isNull()){
+       this.ventana.ingresarMensaje(cad);  
+     }else{
+     this.ventana.ingresarMensajePrivado(cad);
+     }
+ }
+ 
+ 
  
  public void desconectar(String cad){
      this.ventana.ingresarMensaje(cad);
